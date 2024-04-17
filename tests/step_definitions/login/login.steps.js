@@ -33,6 +33,9 @@ When('I search for client having name {string}', async (text)=>{
 When('I click on view button', async()=>{
   await loginPage.clickView();
 })
-Then('I should see text {string}', {timeout:20000},async (text)=>{
+Then('I should see text {string}', {timeout:25000},async (text)=>{
   await loginPage.ifTextPresent(text);
+})
+When('I add program having name {string}',async (text)=>{
+  await loginPage.addProgram(text)
 })

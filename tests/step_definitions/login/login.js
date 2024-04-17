@@ -11,7 +11,9 @@ class LoginPage{
    this.saveButton = this.page.locator('#btnSave');
    this.confirm = this.page.getByText('OK');
    this.searchClientField = this.page.locator('#searchParameters');
-   this.viewButton = this.page.getByText('View');
+   this.viewButton = this.page.locator('button[value="View"]');
+   this.table = this.page.locator('.jsgrid-grid-header');
+   this.addProg = this.page.locator('#newProgramName');
 }
 
   async gotoLoginPage() {
@@ -39,10 +41,14 @@ async addNewClient(text){
 }
 
 async searchClient(text){
+  this.page.waitForTimeout(20000);
   await this.searchClientField.fill(text);
+  await this.table.click();
 }
 async clickView(){
-  await this.viewButton.first({timeout:20000}).click({force:true});
+  this.page.waitForTimeout(20000);
+  await this.viewButton.nth(0).click({force:true});
+  this.page.waitForTimeout(20000);
 }
  async ifTextPresent(expectedText){
     const actualText = await this.page.textContent('body');
@@ -52,4 +58,12 @@ async clickView(){
         throw new Error(`Expected text "${expectedText}" not found on the page.`);
     }
 };
+async addProgram(text){
+  const newPage = await this.page.waitForEvent('popup');
+   console.log('Switched to new tab:', newPage.url());
+   newPage.waitForTimeout(90000);
+   await this.page.waitForLoadState('networkidle');
+   await this.addProg.click();
+  await this.addProg.fill(text);
+}
 }
