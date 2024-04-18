@@ -6,8 +6,8 @@ Feature: Login to players Health
         Then I should see home page
 
     Scenario: Add new client
-    When I create new client having name "myClients"
-    And I search for client having name "myClients"
-    Then I should see text "myClients"
+    When I create new client having name "dataset"
+    And I search for client having name "dataset"
+    Then I should see text "dataset"
     When I click on view button
     When I add program having name "newProg"
